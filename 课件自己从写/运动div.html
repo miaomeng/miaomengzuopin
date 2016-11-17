@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#box{
+			position: absolute;
+			left: 0;
+			top: 100px;
+			width:100px;
+			height:100px;
+			background:#17DD46;
+		}
+		
+</style>
+<script>
+	window.onload=function(){
+		var aBtn=document.getElementsByTagName('input');
+		var oBox=document.getElementById('box')
+		//var timer=0;//声明一个变量存放定时器
+		//oBox.timer=0;//也可以写成这样，但也可以不要
+		var along=1160;
+		var tlong=400;
+		
+		function css(el,attr){
+			if(el.currentStyle) {
+				return el.currentStyle[attr];	
+			} else {
+				return getComputedStyle(el)[attr];
+			}
+		}
+		
+		aBtn[0].onclick=function(){
+			domove();
+			}
+		function domove(){
+			clearInterval(oBox.timer);
+			oBox.timer=setInterval(fn2,40)
+			function fn2(){
+				var speed=parseFloat(css(oBox,'left'))+12;
+
+				if(speed>along){
+					speed=along;
+				}
+				oBox.style.left=speed+'px';
+				//console.log(speed)
+				if(speed==along){
+					clearInterval(oBox.timer);
+					}
+				//console.log(speed)
+			}
+		}	
+			aBtn[1].onclick=function(){
+				clearInterval(oBox.timer);
+			}
+
+}
+</script>
+</head>
+<body>
+		<input type="button" value="奔跑吧!兄弟">
+		<input type="button" value="卧倒女兵">
+		<div id="box"></div>
+	</body>
+</html>
+
