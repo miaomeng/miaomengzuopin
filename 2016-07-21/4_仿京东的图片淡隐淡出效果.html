@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            margin: 100px auto 0;
+            width: 520px;
+            height: 280px;
+            border: 1px solid #000000;
+            position: relative;
+            overflow: hidden;
+        }
+        #list {
+            list-style: none;
+            position: relative;
+        }
+        li {
+            position: absolute;
+            left: 0;
+            top:0;
+            opacity: 0;
+        }
+
+        li:nth-child(1){
+            opacity: 1;
+            z-index: 2;
+        }
+
+        img {
+            display: block;
+        }
+
+        #prev, #next {
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            background: #000000;
+            color: white;
+            font-weight: bold;
+            font-size: 30px;
+            line-height: 60px;
+            text-align: center;
+            top: 110px;
+            cursor: pointer;
+            z-index: 100;
+        }
+        #prev {
+            left: 0;
+        }
+        #next {
+            right: 0;
+        }
+    </style>
+    <script src="tools.js"></script>
+    <script src="MTween.js"></script>
+    <script>
+    window.onload = function(){
+        var allLi = $("li",$("#list"));
+
+        var next = $("#next");
+        var prev = $("#prev");
+
+        //点击下一个按钮，下一个要显示出来，opacity
+        var n = 0;
+        var old = 0;  //记录一下当前操纵的li的下标
+        next.onclick = function (){
+            if( allLi[n].timer ){
+                return;
+            }
+            n++;
+            if( n > allLi.length - 1 ){
+                n = 0;
+            }
+            //让上一次操作的元素的透明度变为0
+            MTween(allLi[old],"opacity",1000,0,"linear");
+            allLi[old].style["z-index"] = 1;
+
+            allLi[n].style["z-index"] = 3;
+            MTween(allLi[n],"opacity",1000,1,"linear");
+
+            old = n;      
+        };
+
+        //点击左边的时候
+        prev.onclick = function (){
+            //正在执行动画，不能继续执行下一个
+            if( allLi[n].timer ){
+                return;
+            }
+            n--;
+            if( n < 0 ){
+                n = allLi.length - 1;
+            }
+
+            //old保存的就是上一次操作的元素
+            // 层级为2 透明度变为0
+            //淡隐
+            allLi[old].style.zIndex = 2;
+            MTween(allLi[old],"opacity",1000,0,"linear")
+
+            //操作当前元素，层级要提高，要让透明度变为1
+            // 淡出
+            allLi[n].style.zIndex = 3;
+            MTween(allLi[n],"opacity",1000,1,"linear");
+
+            old = n;    
+        };
+
+    };
+    </script>
+</head>
+<body>
+    <div id="box">
+        <ul id="list">
+            <li>
+                <a href="http://www.baidu.com">
+                    <img src="images1/1.jpg" >
+                </a>
+            </li>
+            <li><img src="images1/2.jpg" ></li>
+            <li><img src="images1/3.jpg" ></li>
+            <li><img src="images1/4.jpg" ></li>
+            <li>
+                <a href="http://www.miaov.com">
+                    <img src="images1/5.jpg" >
+                </a>
+            </li>
+        </ul>
+        <span id="prev"> < </span>
+        <span id="next"> > </span>
+    </div>
+</body>
+</html>
