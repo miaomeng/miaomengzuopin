@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				-webkit-font-smoothing: antialiased;
+				text-rendering: optimizeLegibility;
+				font-family: "proxima-nova-soft", sans-serif;
+				-webkit-user-select: none;
+				overflow: hidden;
+			}
+			
+			body .vertical-centered-box {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+			}
+			
+			body .vertical-centered-box:after {
+				content: '';
+				display: inline-block;
+				height: 100%;
+				vertical-align: middle;
+				margin-right: -0.25em;
+			}
+			
+			body .vertical-centered-box .content {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				display: inline-block;
+				vertical-align: middle;
+				text-align: left;
+				font-size: 0;
+			}
+			
+			body {
+				background: #2D2D2C;
+			}
+			
+			.loader-line-mask {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 60px;
+				height: 120px;
+				margin-left: -60px;
+				margin-top: -60px;
+				overflow: hidden;
+				-webkit-transform-origin: 60px 60px;
+				-moz-transform-origin: 60px 60px;
+				-o-transform-origin: 60px 60px;
+				-ms-transform-origin: 60px 60px;
+				transform-origin: 60px 60px;
+				-webkit-mask-image: -webkit-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+				mix-blend-mode: hard-light;
+				opacity: 0.8;
+			}
+			
+			.loader-line-mask .loader-line {
+				width: 120px;
+				height: 120px;
+				border-radius: 50%;
+			}
+			
+			.loader-line-mask.one {
+				-webkit-animation: rotate 2s infinite linear;
+				-moz-animation: rotate 2s infinite linear;
+				-o-animation: rotate 2s infinite linear;
+				animation: rotate 2s infinite linear;
+			}
+			
+			.loader-line-mask.one .loader-line {
+				box-shadow: inset 0 0 0 8px #77C170;
+			}
+			
+			.loader-line-mask.two {
+				-webkit-animation: rotate 1.8s 0.5s infinite linear;
+				-moz-animation: rotate 1.8s 0.5s infinite linear;
+				-o-animation: rotate 1.8s 0.5s infinite linear;
+				animation: rotate 1.8s 0.5s infinite linear;
+			}
+			
+			.loader-line-mask.two .loader-line {
+				box-shadow: inset 0 0 0 8px #F25F5C;
+			}
+			
+			.loader-line-mask.three {
+				-webkit-animation: rotate 2s 1s infinite linear;
+				-moz-animation: rotate 2s 1s infinite linear;
+				-o-animation: rotate 2s 1s infinite linear;
+				animation: rotate 2s 1s infinite linear;
+			}
+			
+			.loader-line-mask.three .loader-line {
+				box-shadow: inset 0 0 0 8px #FFE066;
+			}
+			
+			.loader-line-mask.four {
+				-webkit-animation: rotate 1.8s 1.5s infinite linear;
+				-moz-animation: rotate 1.8s 1.5s infinite linear;
+				-o-animation: rotate 1.8s 1.5s infinite linear;
+				animation: rotate 1.8s 1.5s infinite linear;
+			}
+			
+			.loader-line-mask.four .loader-line {
+				box-shadow: inset 0 0 0 8px #247BA0;
+			}
+			
+			lesshat-selector {
+				-lh-property: 0;
+			}
+			
+			@-webkit-keyframes rotate {
+				0% {
+					-webkit-transform: rotate(0deg);
+				}
+				100% {
+					-webkit-transform: rotate(360deg);
+				}
+			}
+			
+			@-moz-keyframes rotate {
+				0% {
+					-moz-transform: rotate(0deg);
+				}
+				100% {
+					-moz-transform: rotate(360deg);
+				}
+			}
+			
+			@-o-keyframes rotate {
+				0% {
+					-o-transform: rotate(0deg);
+				}
+				100% {
+					-o-transform: rotate(360deg);
+				}
+			}
+			
+			@keyframes rotate {
+				0% {
+					-webkit-transform: rotate(0deg);
+					-moz-transform: rotate(0deg);
+					-ms-transform: rotate(0deg);
+					transform: rotate(0deg);
+				}
+				100% {
+					-webkit-transform: rotate(360deg);
+					-moz-transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					transform: rotate(360deg);
+				}
+				;
+			}
+			
+			lesshat-selector {
+				-lh-property: 0;
+			}
+			
+			@-webkit-keyframes rotate {
+				0% {
+					-webkit-transform: rotate(0deg);
+				}
+				100% {
+					-webkit-transform: rotate(360deg);
+				}
+			}
+			
+			@-moz-keyframes rotate {
+				0% {
+					-moz-transform: rotate(0deg);
+				}
+				100% {
+					-moz-transform: rotate(360deg);
+				}
+			}
+			
+			@-o-keyframes rotate {
+				0% {
+					-o-transform: rotate(0deg);
+				}
+				100% {
+					-o-transform: rotate(360deg);
+				}
+			}
+			
+			@keyframes rotate {
+				0% {
+					-webkit-transform: rotate(0deg);
+					-moz-transform: rotate(0deg);
+					-ms-transform: rotate(0deg);
+					transform: rotate(0deg);
+				}
+				100% {
+					-webkit-transform: rotate(360deg);
+					-moz-transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					transform: rotate(360deg);
+				}
+				;
+			}
+			
+			lesshat-selector {
+				-lh-property: 0;
+			}
+			
+			@-webkit-keyframes fade {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.25;
+				}
+			}
+			
+			@-moz-keyframes fade {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.25;
+				}
+			}
+			
+			@-o-keyframes fade {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.25;
+				}
+			}
+			
+			@keyframes fade {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.25;
+				}
+				;
+			}
+			
+			lesshat-selector {
+				-lh-property: 0;
+			}
+			
+			@-webkit-keyframes fade {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.25;
+				}
+			}
+			
+			@-moz-keyframes fade {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.25;
+				}
+			}
+			
+			@-o-keyframes fade {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.25;
+				}
+			}
+			
+			@keyframes fade {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.25;
+				}
+				;
+			}
+			
+			lesshat-selector {
+				-lh-property: 0;
+			}
+			
+			@-webkit-keyframes fade-in {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@-moz-keyframes fade-in {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@-o-keyframes fade-in {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes fade-in {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+				;
+			}
+			
+			lesshat-selector {
+				-lh-property: 0;
+			}
+			
+			@-webkit-keyframes fade-in {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@-moz-keyframes fade-in {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@-o-keyframes fade-in {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes fade-in {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+				;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="vertical-centered-box">
+			<div class="content">
+				<div class="loader-circle"></div>
+				<div class="loader-line-mask one">
+					<div class="loader-line"></div>
+				</div>
+				<div class="loader-line-mask two">
+					<div class="loader-line"></div>
+				</div>
+				<div class="loader-line-mask three">
+					<div class="loader-line"></div>
+				</div>
+				<div class="loader-line-mask four">
+					<div class="loader-line"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

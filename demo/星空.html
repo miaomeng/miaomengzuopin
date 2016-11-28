@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body,
+			html {
+				background-color: #000;
+				transform-style: preserve-3d;
+				perspective: 500;
+			}
+			
+			.layer {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				width: inherit;
+				height: inherit;
+				animation: zoom 20s linear infinite;
+				transform-origin: 50% 50%;
+			}
+			
+			.layer:nth-child(1) {
+				animation-delay: -1s;
+			}
+			
+			.layer:nth-child(2) {
+				animation-delay: -2s;
+			}
+			
+			.layer:nth-child(3) {
+				animation-delay: -3s;
+			}
+			
+			.layer:nth-child(4) {
+				animation-delay: -4s;
+			}
+			
+			.layer:nth-child(5) {
+				animation-delay: -5s;
+			}
+			
+			.layer:nth-child(6) {
+				animation-delay: -6s;
+			}
+			
+			.layer:nth-child(7) {
+				animation-delay: -7s;
+			}
+			
+			.layer:nth-child(8) {
+				animation-delay: -8s;
+			}
+			
+			.layer:nth-child(9) {
+				animation-delay: -9s;
+			}
+			
+			.layer:nth-child(10) {
+				animation-delay: -10s;
+			}
+			
+			.layer:nth-child(11) {
+				animation-delay: -11s;
+			}
+			
+			.layer:nth-child(12) {
+				animation-delay: -12s;
+			}
+			
+			.layer:nth-child(13) {
+				animation-delay: -13s;
+			}
+			
+			.layer:nth-child(14) {
+				animation-delay: -14s;
+			}
+			
+			.layer:nth-child(15) {
+				animation-delay: -15s;
+			}
+			
+			.layer:nth-child(16) {
+				animation-delay: -16s;
+			}
+			
+			.layer:nth-child(17) {
+				animation-delay: -17s;
+			}
+			
+			.layer:nth-child(18) {
+				animation-delay: -18s;
+			}
+			
+			.layer:nth-child(19) {
+				animation-delay: -19s;
+			}
+			
+			.layer:nth-child(20) {
+				animation-delay: -20s;
+			}
+			
+			.layer:nth-child(21) {
+				animation-delay: -21s;
+			}
+			
+			@keyframes zoom {
+				0% {
+					transform: perspective(250px) translate3d(0, 0, -500px);
+				}
+				100% {
+					transform: perspective(250px) translate3d(0, 0, 500px);
+				}
+			}
+			
+			.star {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				background-color: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="layer"></div>
+	</body>
+	<script>
+		(function() {
+			var layers = 20;
+			var starsPerLayer = 80;
+
+			var renderLayers = function() {
+				for(var i = 0; i < layers; i++) {
+					var newLayer = document.createElement('div');
+					newLayer.classList.add('layer');
+					populateParticles(starsPerLayer, newLayer);
+					document.body.appendChild(newLayer);
+				}
+			}
+
+			var populateParticles = function(amt, container) {
+				for(var i = 0; i < amt; i++) {
+					var el = document.createElement('div');
+					el.classList.add('star');
+					var top = Math.floor(Math.random() * window.innerHeight);
+					var left = Math.floor(Math.random() * window.innerWidth);
+					el.style.top = top + 'px';
+					el.style.left = left + 'px';
+					container.appendChild(el);
+				}
+			}
+
+			renderLayers();
+		})()
+	</script>
+
+</html>

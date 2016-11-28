@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5.1/dat.gui.min.js"></script>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		(function() {
+			document.addEventListener('DOMContentLoaded', function() {
+				'use strict';
+				/* i love DOM */
+				var canvas = document.createElement('canvas');
+				document.body.appendChild(canvas);
+				document.body.style.padding = '0px';
+				document.body.style.margin = '0px';
+				document.body.style.overflow = 'hidden';
+				/* i love full screen */
+				var w = canvas.width = window.innerWidth;
+				var h = canvas.height = window.innerHeight;
+				var ctx = canvas.getContext('2d');
+				/* i love bad short opts ^__^ like q or qwe */
+				var opts = {};
+				var gui = new dat.GUI();
+
+				function opt(name, value, min, max) {
+					opts[name] = value;
+					return gui.add(opts, name, min, max);
+				}
+				/*
+					if code.before > ugly -> just.dont.read(below) // below worse...
+					==== let's begin. ====
+				*/
+				opt('lifeBase', 150, 0, 200);
+				opt('lifeRandom', 100, 0, 200);
+				opt('showSight', true);
+				opt('heating', 15, 5, 120).onChange(() => shooters[0].heating = opts.heating);
+				opt('balls', 10, 1, 40);
+				opt('regen', genBalls);
+				opt('directThrust', 6, 1, 30);
+				opt('explosion', 256, 1, 2048);
+
+				function loop() {
+					let ts = 1;
+					ctx.fillStyle = 'rgba(0,0,0, 1)';
+					ctx.fillRect(0, 0, w, h);
+					for(let ball of balls) {
+						let x = ball.pos[0] + ball.vel[0];
+						let y = ball.pos[1] + ball.vel[1];
+						if(x < 0 || x > w)
+							ball.vel[0] = -ball.vel[0];
+						if(y < 0 || y > h)
+							ball.vel[1] = -ball.vel[1];
+						ball.vel[0] *= 0.99;
+						ball.vel[1] *= 0.99;
+						ball.pos[0] += ball.vel[0];
+						ball.pos[1] += ball.vel[1];
+
+						ctx.beginPath();
+						ctx.arc(ball.pos[0], ball.pos[1], ball.size, 0, Math.PI * 2, 0);
+						ctx.fillStyle = ball.color;
+						ctx.fill();
+					}
+					for(let shooter of shooters) {
+						shooter.cooldown = Math.max(0, shooter.cooldown - ts);
+						if(shooter.cooldown === 0) {
+							shooter.cooldown += shooter.heating;
+							missiles.push(new shooter.missile(shooter.pos, 0, balls[(Math.random() * balls.length) >> 0]));
+						}
+					}
+					for(let missile of missiles) {
+						missile.process(ts);
+						missile.render();
+					}
+					missiles = missiles.filter((t) => !t.garbage);
+					for(let particle of particles) {
+						particle.render();
+						particle.process(ts);
+					}
+					particles = particles.filter((t) => !t.garbage);
+					time += ts;
+					requestAnimationFrame(loop);
+				}
+
+				class Missile {
+					constructor(pos, a, target) {
+						this.pos = [pos[0], pos[1]];
+						this.vel = [0, 0];
+						this.a = a;
+						this.vm = 0.95;
+						this.v = 0.5;
+						this.target = target;
+						this.life = opts.lifeBase + Math.random() * opts.lifeRandom;
+					}
+					process(ts) {
+						let x = this.target.pos[0] - this.pos[0];
+						let y = this.target.pos[1] - this.pos[1];
+						let r = Math.sqrt(x * x + y * y)
+
+						if(r < this.target.size) {
+							this.target.vel[0] += this.vel[0] / this.target.size * opts.directThrust;
+							this.target.vel[1] += this.vel[1] / this.target.size * opts.directThrust;
+							Particle.genFromMissileHit(this);
+							return this.garbage = true;
+						}
+						if(r < this.target.size * 4 && (this.vel[0] * x + this.vel[1] * y) < 0) {
+							ParticleExplosion.genFromMissile(this);
+							return this.garbage = true;
+						}
+						if(this.life <= 0 || this.target.garbage) {
+							Particle.genFromMissileHit(this);
+							return this.garbage = true;
+						}
+						this.life -= ts;
+
+						this.a = Math.atan2(y, x);
+						this.vel[0] *= this.vm;
+						this.vel[1] *= this.vm;
+						this.vel[0] += Math.cos(this.a) * this.v;
+						this.vel[1] += Math.sin(this.a) * this.v;
+						this.pos[0] += this.vel[0];
+						this.pos[1] += this.vel[1];
+					}
+					render() {
+						ctx.beginPath();
+						ctx.fillStyle = '#f00';
+						ctx.moveTo(this.pos[0], this.pos[1]);
+						ctx.arc(
+							this.pos[0], this.pos[1], 15,
+							Math.PI * -1.125 + this.a, Math.PI * -0.875 + this.a, 0);
+						ctx.fill();
+						if(opts.showSight) {
+							ctx.beginPath();
+							ctx.strokeStyle = 'rgba(255,255,0, 0.1)';
+							ctx.moveTo(this.pos[0], this.pos[1]);
+							ctx.lineTo(this.target.pos[0], this.target.pos[1]);
+							ctx.moveTo(this.pos[0], this.pos[1]);
+							let f = 5;
+							ctx.lineTo(this.pos[0] + this.vel[0] * f, this.pos[1] + this.vel[1] * f);
+							ctx.stroke();
+						}
+					}
+				}
+				class Particle {
+					constructor(pos, vel, color) {
+						this.pos = [pos[0], pos[1]];
+						this.vel = [vel[0], vel[1]];
+						this.color = color || '#f44';
+						this.life = 15;
+						this.vm = 0.98;
+					}
+					render() {
+						ctx.beginPath();
+						ctx.arc(this.pos[0], this.pos[1], 2, 0, Math.PI * 2, 0);
+						ctx.fillStyle = this.color;
+						ctx.fill();
+					}
+					process(ts) {
+						if(this.life <= 0)
+							return this.garbage = true;
+						this.life -= ts;
+						this.vel[0] *= this.vm;
+						this.vel[1] *= this.vm;
+						this.pos[0] += this.vel[0];
+						this.pos[1] += this.vel[1];
+					}
+					static genFromMissileHit(missile) {
+						let range = Math.PI / 4;
+						for(let i = 0; i < 3; ++i) {
+							let n = (Math.random() * 4 + 2) >> 0;
+							for(let a = -range / 2; a <= range / 2; a += range / n) {
+								let mul = 0.7 + Math.random() * 0.7;
+								let vel = [
+									(missile.vel[0] + missile.target.vel[0]) / 2,
+									(missile.vel[1] + missile.target.vel[1]) / 2,
+								];
+								vel = [
+									mul * (vel[0] * Math.cos(a) - vel[1] * Math.sin(a)),
+									mul * (vel[1] * Math.cos(a) + vel[0] * Math.sin(a)),
+								];
+								particles.push(new Particle(
+									missile.pos,
+									vel,
+									`hsl(0, ${Math.random()*50+50}%, 50%)`
+								));
+							}
+						}
+					}
+				}
+				class ParticleExplosion {
+					constructor(pos) {
+						this.pos = [pos[0], pos[1]];
+						this.size = 0;
+						this.maxSize = Math.sqrt(opts.explosion);
+						this.es = 1;
+					}
+					render() {
+						for(let i of[0.25, 0.5, 0.75, 1]) {
+							ctx.beginPath();
+							ctx.arc(this.pos[0], this.pos[1], this.size * i, 0, Math.PI * 2, 0);
+							ctx.fillStyle = `rgba(255,0,0, ${1-(this.size/this.maxSize)})`;
+							ctx.fill();
+						}
+					}
+					process(ts) {
+						this.size += ts * this.es;
+						if(this.size > this.maxSize)
+							return this.garbage = true;
+					}
+					static genFromMissile(missile) {
+						let f = opts.explosion;
+						for(let ball of balls) {
+							let x = ball.pos[0] - missile.pos[0];
+							let y = ball.pos[1] - missile.pos[1];
+							let r = Math.sqrt(x * x + y * y);
+							ball.vel[0] += x / r / r * f;
+							ball.vel[1] += y / r / r * f;
+						}
+						particles.push(new ParticleExplosion(missile.pos));
+					}
+				}
+
+				function genBalls() {
+					for(let ball of balls)
+						ball.garbage = true;
+					balls.length = 0;
+					for(let i = 0; i < opts.balls; ++i) {
+						balls.push({
+							pos: [Math.random() * w, Math.random() * h],
+							vel: [0, 0],
+							color: `hsl(${Math.random()*360}, 50%, 50%)`,
+							size: 5 + Math.random() * 15,
+						});
+					}
+				}
+
+				let balls = [
+					/*
+					{
+						pos: [w/2,h/2],
+						vel: [2,3],
+						color: '#0f0',
+						size: 10,
+					},
+					{
+						pos: [w*0.75,h/2],
+						vel: [2,0.5],
+						color: '#af0',
+						size: 15,
+					},
+					{
+						pos: [w*0.25,h/2],
+						vel: [-3,0.5],
+						color: '#88f',
+						size: 5,
+					},
+					*/
+				];
+				let shooters = [{
+					pos: [w / 2, h / 2],
+					missile: Missile,
+					cooldown: 0,
+					heating: 30,
+				}, ];
+				let particles = [];
+				let missiles = [];
+				let time = 0;
+				genBalls();
+				loop();
+
+			}, false);
+		})()
+	</script>
+
+</html>
