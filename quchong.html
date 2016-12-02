@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组去重</title>
+</head>
+<body>
+
+</body>
+<script>
+    (function(){
+        var arr=[1, 1, '1', '2', 1];
+        var arr2=unique(arr);
+
+        console.log(arr2);
+        function unique(a){
+            var rel=[];
+
+            for(var i=0;i<a.length;i++){
+                    var item=a[i];
+                for(var j=0;j<rel.length;j++){
+                    if(rel[j] === item)
+                        break;
+                }
+                if(j === rel.length)
+                    rel.push(item);
+            }
+            return rel;
+        }
+
+    })();
+</script>
+</html>
