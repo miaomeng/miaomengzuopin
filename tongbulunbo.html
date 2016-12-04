@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.wrap{
+				width:873px;
+				height:551px;
+				margin:30px auto;
+				border:5px solid #BDCEC6;
+				background:url(img/26.png) no-repeat;
+				position:relative;
+			}
+			#nav{
+				width:120px;
+				height:40px;
+				margin-left:49px;
+				margin-top:30px;
+				text-align:center;
+			}
+			#nav a{
+				float:left;
+				width:48px;
+				font:bold 16px/40px "微软雅黑";
+				color:#000;
+				border:1px solid #17DD46;
+				background:#69D3F6;
+				border-radius:6px;
+				margin-right:10px;
+				text-decoration:none;
+			}
+			.pic{
+				margin:42px 66px 0 49px;
+			}
+			.pic .div1{
+				float:left;
+				width:448px;
+				height:296px;
+				margin-right:62px;
+				text-align:center;
+			}
+			.div1 img{
+				width:448px;
+				height:246px;
+				border:none;
+				vertical-align:top ;
+				
+			}
+			.pic .div2{
+				float:left;
+				width:248px;
+				height:296px;
+				text-align:center;
+			}
+			.div2 img{
+				width:248px;
+				height:246px;
+				border:none;
+				vertical-align:top ;
+			}
+			#left{
+				width:80px;
+				height:40px;
+				font:14px/40px "微软雅黑";
+				text-align:center;
+				position:absolute;
+				left:50px;
+				bottom:130px;
+			}
+			#right{
+				position:absolute;
+				width:80px;
+				height:40px;
+				font:14px/40px "微软雅黑";
+				text-align:center;
+				position:absolute;
+				right:270px;
+				bottom:130px;
+			}
+			.div1 span{
+				height:50px;
+				font:14px/50px "微软雅黑";
+				text-align:center;
+			}
+			.div2 span{
+				height:50px;
+				font:14px/50px "微软雅黑";
+				text-align:center;
+			}
+			
+		</style>
+		<script>
+			window.onload=function(){
+				var aBtn=document.getElementsByTagName('a');
+				var oImg1=document.getElementById('img1');
+				var oImg2=document.getElementById('img2');
+				var Span1=document.querySelector('.div1 span');
+				var Span2=document.querySelector('.div2 span');
+				var Left=document.getElementById('left');
+				var Right=document.getElementById('right');
+				var arr=["img/a.jpg","img/b.jpg","img/c.jpg","img/e.jpg","img/f.jpg","img/j.jpg"]
+				var brr=["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg"]
+				var nub=0;
+				var num=0;
+			
+				oImg1.onclick=function(){
+					nub++;
+					if(nub>arr.length-1){
+						nub=0;
+					}
+						 oImg1.src= arr[nub];
+						Left.innerHTML=nub + 1 + ' / ' + arr.length;
+						Span1.innerHTML="第一组第"+(nub+1)+"张"
+				}
+				oImg2.onclick=function(){
+					num++;
+					if(num>brr.length-1){
+						num=0;
+					}
+						 oImg2.src= brr[num];
+						right.innerHTML=num + 1 + ' / ' + brr.length;
+						Span2.innerHTML="第一组第"+(num+1)+"张"
+				}
+				
+				
+				aBtn[0].onclick=function(){//点击上一页做减减时的效果
+					console.log(aBtn[0])
+					nub--;
+					if(nub<0){
+						nub=arr.length-1;
+					}
+						 oImg1.src= arr[nub];
+						Left.innerHTML=nub + 1 + ' / ' + arr.length;
+						Span1.innerHTML="第一组第"+(nub+1)+"张"
+					//左边图片点击时减减时的效果
+				
+					num--;
+					if(num<0){
+						num=brr.length-1;
+					}
+						 oImg2.src= brr[num];
+						right.innerHTML=num + 1 + ' / ' + brr.length;
+						Span2.innerHTML="第一组第"+(num+1)+"张"
+					//右边图片点击时减减的效果
+				
+				
+				aBtn[1].onclick=function(){//点击下一页图片做加一张效果
+					console.log(aBtn[1])
+					nub++;
+					if(nub>arr.length-1){
+						nub=0;
+					}
+						 oImg1.src= arr[nub];
+						Left.innerHTML=nub + 1 + ' / ' + arr.length;
+						Span1.innerHTML="第一组第"+(nub+1)+"张"
+					//左边图片的加加时的效果
+					num++;
+					if(num>brr.length-1){
+						num=0;
+					}
+						 oImg2.src= brr[num];
+						right.innerHTML=num + 1 + ' / ' + brr.length;
+						Span2.innerHTML="第一组第"+(num+1)+"张"
+					//右边图片加加时的效果
+			}
+			
+		</script>
+	</head>
+	<body>
+		<section class="wrap">
+			   <nav id="nav">
+			   	<a href="javascript:;" id="prve">上一张</a>
+			   	<a href="javascript:;" id="next">下一张</a>
+			   </nav>
+			   <div class="pic">
+			   		<div class="div1"><img src="img/a.jpg" id="img1"><span>第一组第1张</span></div>
+			   		<div class="div2"><img src="img/1.jpg" id="img2"><span>第二组第1张</span></div>
+			   </div>
+			   <span id="left">1/6</span>
+			   <span id="right">1/4</span>
+		</section>
+	</body>
+</html>
