@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width:86px;
+				height:86px;
+				
+			}
+			#box a{
+				text-decoration:none;
+				display:block;
+				width:86px;
+				height:86px;
+			}
+			img{
+				width:86px;
+				height:86px;
+				-webkit-border-radius: 25px;
+				 transition: all 0.35s linear;
+    			-webkit-transition: all 0.35s linear;
+			}
+			 #box a:hover img{
+			 	transform: rotate(360deg);
+			 }  
+		</style>
+	</head>
+	<body>
+		<div id="box"><a href="javascript:;"><img src="img/p5.png" /></a></div>
+	</body>
+	<script>
+		(function(){
+			var Img=document.querySelector('img');
+			var timer=0;
+			
+		var ele ;
+
+			$.fn.extend({
+			    rotate: function () {
+			        ele = this ;
+			        setInterval('singleRotate()',20);
+			    }
+			});
+			
+			var degree = 0;
+			
+			function singleRotate() {
+			    degree = degree + 50 * Math.PI / 180;
+			    ele.css("transform","rotate("+degree+"deg)");
+			}
+			
+		})()
+	</script>
+</html>

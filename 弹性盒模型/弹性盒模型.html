@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta name="viewport" content="width=device-width,user-scalable=no">-->
+		<title></title>
+		<!--<script>
+			(function() {
+				var html = document.querySelector("html");
+				var Hwidth = html.getBoundingClientRect().width;
+				html.style.fontSize = Hwidth / 15 + "px";
+			})();
+		</script>-->
+		<style>
+			body{margin:0;}
+			a{
+				text-decoration:none;
+			}
+			
+			#box{
+				width:700px;
+				padding:10px 25px 0;
+				background:#ccc;
+				margin:30px auto;
+			}
+			.sex{
+				width:700px;
+				height:130px;
+				display:-webkit-box;
+				display:flex;
+			}
+			.sex div{
+				width:140px;
+				height:130px;
+				flex-grow:1;
+				-webkit-box-flex:1;
+				
+			}
+			.sex div a{
+				display:block;
+				font:14px/30px "微软雅黑";
+				text-align:center;
+				/*position:relative;*/
+			}
+			.sex div a:before{
+				width:86px;
+				height:86px;
+				content:"";
+				display:block;
+				margin:auto;
+				background:url(img/tianmao.png) no-repeat;
+				border-radius:50%;
+			}
+			#box div:nth-of-type(1) div:nth-of-type(1) a:before{
+				background-position:0 0;
+			}
+			#box div:nth-of-type(1) div:nth-of-type(2) a:before{
+				background-position:-87px 0;
+			}
+			#box div:nth-of-type(1) div:nth-of-type(3) a:before{
+				background-position:-174px 0;
+			}
+			#box div:nth-of-type(1) div:nth-of-type(4) a:before{
+				background-position:-261px 0;
+			}
+			#box div:nth-of-type(1) div:nth-of-type(5) a:before{
+				background-position:-348px 0;
+			}
+			#box div:nth-of-type(2) div:nth-of-type(1) a:before{
+				background-position:0 -87px;
+			}
+			#box div:nth-of-type(2) div:nth-of-type(2) a:before{
+				background-position:-87px -87px;
+			}
+			#box div:nth-of-type(2) div:nth-of-type(3) a:before{
+				background-position:-174px -87px;
+			}
+			#box div:nth-of-type(2) div:nth-of-type(4) a:before{
+				background-position:-261px -87px;
+			}
+			#box div:nth-of-type(2) div:nth-of-type(5) a:before{
+				background-position:-348px -87px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+		<div class="sex">
+			<div><a href="javascript:;">天猫</a></div>
+			<div><a href="javascript:;">超市</a></div>
+			<div><a href="javascript:;">到家</a></div>
+			<div><a href="javascript:;">聚划算</a></div>
+			<div><a href="javascript:;">菜鸟</a></div>
+		</div>
+		<div class="sex">
+			<div><a href="javascript:;">及时达</a></div>
+			<div><a href="javascript:;">美妆</a></div>
+			<div><a href="javascript:;">服装</a></div>
+			<div><a href="javascript:;">电器</a></div>
+			<div><a href="javascript:;">视频</a></div>
+		</div>
+	</div>	
+		
+	</body>
+</html>
