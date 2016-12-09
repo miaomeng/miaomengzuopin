@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Image Loader</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container,
+        .loader,
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .page {
+            overflow: hidden;
+            display: none;
+            -webkit-transition: -webkit-transform .4s ease;
+            transition: transform .4s ease;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .page.page--active,
+        .page.page--prev,
+        .page.page--next {
+            display: block;
+        }
+
+        .page.page--next,
+        .page.page--active.page--active-right {
+            -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+        }
+
+        .page.page--prev,
+        .page.page--active.page--active-left {
+            -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+        }
+
+        .page.page--next.page--next-left,
+        .page.page--prev.page--prev-right,
+        .page.page--active {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        .page--1 {
+            background: url(img/page1.jpg) no-repeat;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+        }
+
+        .page--2 {
+            background: url(img/page2.jpg) no-repeat;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+        }
+
+        .page--3 {
+            background: url(img/page3.jpg) no-repeat;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+        }
+
+        .loader {
+            background: #C0DAD9;
+        }
+
+        .loader__bar {
+            color: #fff;
+            line-height: 2em;
+            height: 2em;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 10em;
+            text-align: center;
+            margin-left: -5em;
+            margin-top: -1em;
+            overflow: hidden;
+        }
+
+        .loader__progress,.loader__progress-bg,.loader__info {
+            position: absolute;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        .loader__progress {
+            z-index: 1;
+            width: 0;
+            background: #1A3831;
+            border-radius: 1em;
+        }
+
+        .loader__progress-bg {
+            z-index: 0;
+            width: 100%;
+            background: #3C776A;
+            border-radius: 1em;
+        }
+
+        .loader__info {
+            z-index: 2;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div id="container" class="container">
+    <section id="loader" class="loader">
+        <div class="loader__bar">
+            <div class="loader__progress-bg"></div>
+            <div id="loader__progress" class="loader__progress"></div>
+            <div id="loader__info" class="loader__info">Loading 0%</div>
+        </div>
+    </section>
+    <section id="page-1" class="page page--1">
+    </section>
+    <section id="page-2" class="page page--2">
+    </section>
+    <section id="page-3" class="page page--3">
+    </section>
+</div>
+<script src="js/zepto.js"></script>
+<script src="js/transition.js"></script>
+<script src="js/hammer.js"></script>
+<script src="js/imgLoader.js"></script>
+<script src="js/swipe.js"></script>
+<script>
+
+    //模拟加载慢的效果
+    var callbacks = [];
+    imgLoader(['img/page1.jpg', 'img/page2.jpg', 'img/page3.jpg'], function (percentage) {
+        callbacks.push((function(percent, i){
+            return function(){
+                setTimeout(function(){
+                    var percentT = percent * 100;
+                    $('#loader__info').html('Loading ' + (parseInt(percentT)) + '%');
+                    $('#loader__progress')[0].style.width = percentT + '%';
+                    if (percent == 1) {
+                        setTimeout(function(){
+                            $('#loader').remove();
+                            Swipe.init();
+                        }, 600);
+                    }
+                    callbacks[i + 1] && callbacks[i + 1]();
+                },600);
+            }
+        })(percentage, callbacks.length));
+
+        if(percentage == 1) {
+            callbacks[0]();
+        }
+    });
+
+    //=================================================
+    //* 以上代码为模拟网速慢的情况，特意对进度处理的回调做了延迟
+    //* 真实环境，应该使用下面注释的代码
+    //=================================================
+
+    /**
+        imgLoader(['img/page1.jpg', 'img/page2.jpg', 'img/page3.jpg'], function (percentage) {
+            var percentT = percentage * 100;
+            $('#loader__info').html('Loading ' + (parseInt(percentT)) + '%');
+            $('#loader__progress')[0].style.width = percentT + '%';
+            if (percentage == 1) {
+                $('#loader').remove();
+                Swipe.init();
+            }
+        });
+    */
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Img Loader</title>
+</head>
+<body>
+<script src="../js/imgLoader.js"></script>
+<script>
+
+    //预加载图片按钮
+    var img_list = ['app-interface.jpg', 'download-android.png', 'download-ios.png', 'page-1-bottom-bg.png', 'page-1-download.png'];
+    var imgPathPrefix;
+    //匹配高清屏
+    if (window.devicePixelRatio && window.devicePixelRatio > 2) {
+        imgPathPrefix = '../img/@3x/';
+    } else {
+        imgPathPrefix = '../img/@2x/';
+    }
+
+    for (var i = img_list.length - 1; i >= 0; i--) {
+        img_list[i] = imgPathPrefix + img_list[i];
+    }
+
+    imgLoader(img_list, function(percentage){
+        console.log(percentage)
+    });
+</script>
+</body>
+</html>
