@@ -1,0 +1,52 @@
+@charset "utf-8";
+/*
+*****创建日期：2013年2月1日
+*****作者：智能社 www.zhinengshe.com
+*****用途：通用的头部条公用样式
+*****版本：0.1
+备注：
+默认为白色，class加上英文的颜色则会变成相应的颜色
+*/
+
+.comHeadBar{
+	height:24px;
+	font:12px/2 'Verdana';
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#99FFFFFF', endColorstr='#99FFFFFF');
+	background:rgba(255,255,255,0.6);
+	-webkit-box-shadow:0 1px 1px #CCC;
+	-moz-box-shadow:0 1px 1px #CCC;
+	box-shadow:0 1px 1px #CCC;
+	border-bottom:#CCC solid 1px\9;
+}
+.comHeadBar a{
+	text-decoration:none;
+	padding:0 15px;
+	color:#000;
+	display:inline-block;
+	height:24px;
+}
+.comHeadBar a:hover{background:#FFF;}
+.comHeadBar_black{
+	height:24px;
+	font:12px/2 'Verdana';
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#CC000000', endColorstr='#CC000000');
+	background:rgba(0,0,0,0.8);
+	-webkit-box-shadow:0 1px 1px #CCC;
+	-moz-box-shadow:0 1px 1px #CCC;
+	box-shadow:0 1px 1px #CCC;
+	border-bottom:#CCC solid 1px\9;
+}
+.comHeadBar_black a{
+	text-decoration:none;
+	color:#FFF;
+	padding:0 15px;
+	display:inline-block;
+	height:24px;
+}
+.comHeadBar_black a:hover{background:#666;}
+.fl{float:left;}
+.fr{float:right;}
+
+.comLinks{position:fixed; bottom:20px; left:0; width:100%; text-align:center; font-family:Verdana;}
+.link_black{color:#000; text-shadow:2px 2px 2px #FFF;}
+.link_black:hover{color:#09F;text-shadow:1px 1px 2px #333;}
