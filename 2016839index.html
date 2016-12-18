@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+		body{
+			margin:0;
+			position:relative;
+			background:#EEE;
+		}
+		input{
+			outline: none;
+			margin: 0;
+			border:none;
+		}
+		.wrap{
+			width:500px;
+			height:500px;
+			margin:30px 0 0 100px;
+		}
+			.box{
+				width:100px;
+				height:100px;
+				margin-top:20px;
+				border:2px solid #000;
+			}
+			.btn1{
+				background:red;
+				width:90px;
+				height:30px;
+			}
+			.text{
+				display:inline-block;
+				font:bold 18px/30px "微软雅黑";
+				color:#000;
+			}
+			.list{
+				width:300px;
+				height:300px;
+				position:fixed;
+				left:50%;
+				top:50%;
+				margin-left:-150px;
+				margin-top:-150px;
+				border:20px solid #333333;
+				display:none;
+			}
+			.list1{
+				padding:20px 0 20px 10px;
+			}
+			.list2{
+				padding:20px 0 20px 10px;
+			}
+			.list3{
+				padding:20px 0 20px 10px;
+			}
+			.list4{
+				padding:20px 0 20px 0;
+				text-align:center;
+			}
+			.red1{
+				background:red;
+				height:24px;
+				width:50px;
+			}
+			.yellow1{
+				background:yellow;
+				height:24px;
+				width:50px;
+			}
+			.blue1{
+				background:blue;
+				height:24px;
+				width:50px;
+			}
+			.text2{
+				font:bold 14px/30px "微软雅黑";
+				color:#000;
+			}
+			.pic{
+				height:24px;
+				width:50px;
+				background:#FFFF00;
+				border:1px solid #333;
+			}
+			.pic2{
+				background:#0000FF;
+				height:30px;
+				font:14px/30px "微软雅黑";
+				border:none;
+			}
+		</style>
+		<script>
+		window.onload = function (){
+				var oBtn=document.getElementById('btns');
+				var oList=document.getElementById('list');
+				var oBox=document.getElementById('box');
+				var oBtn1=document.getElementById('btn1');
+				var oBtn2=document.getElementById('btn2');
+				var oBtn3=document.getElementById('btn3');
+				var oBtn4=document.getElementById('btn4');
+				var oBtn5=document.getElementById('btn5');
+				var oBtn6=document.getElementById('btn6');
+				var oBtn7=document.getElementById('btn7');
+				var oBtn8=document.getElementById('btn8');
+				var oBtn9=document.getElementById('btn9');
+				var oBtn10=document.getElementById('btn10');
+				var oBtn11=document.getElementById('btn11');
+				
+				oBtn.onclick=function () {
+					oList.style.display="block";
+				};
+				
+				oBtn1.onclick=function () {
+					oBox.style.background="red";
+				};
+				oBtn2.onclick=function () {
+					oBox.style.background="yellow";
+				};
+				oBtn3.onclick=function () {
+					oBox.style.background="blue";
+				};
+				oBtn4.onclick=function () {
+					oBox.style.width="200px";
+				};
+				oBtn5.onclick=function () {
+					oBox.style.width="300px";
+				};
+				oBtn6.onclick=function () {
+					oBox.style.width="400px";
+				};
+				oBtn7.onclick=function () {
+					oBox.style.height="200px";
+				};
+				oBtn8.onclick=function () {
+					oBox.style.height="300px";
+				};
+				oBtn9.onclick=function () {
+					oBox.style.height="400px";
+				};
+				oBtn10.onclick=function () {
+					oBox.style.width="100px";
+					oBox.style.height="100px";
+					oBox.style.background="none";
+				};
+				oBtn11.onclick=function () {
+					oList.style.display="none";
+				};
+		};
+		</script>
+	</head>
+	<body>
+		<div class="wrap">
+		<span class="text" id="text">请为下面DIV设置样式:</span>
+			<input type="button" id="btns" class="btn1" value="点击设置"/>
+		<div class="box" id="box"></div>
+		</div>
+		<div class="mask"></div>
+		<div class="list" id="list">
+			<div class="list1">
+				<lable class="text2">请选择背景颜色:</label>
+				<input type="button" id="btn1" class="red1" value="红色"/>
+				<input type="button" id="btn2" class="yellow1" value="黄色"/>
+				<input type="button" id="btn3" class="blue1" value="蓝色"/>
+			</div>
+			<div class="list2">
+				<lable class="text2">请选择宽度(px):</label>
+				<input type="button" id="btn4" class="pic" value="200"/>
+				<input type="button" id="btn5" class="pic" value="300"/>
+				<input type="button" id="btn6" class="pic" value="400"/>
+			</div>
+			<div class="list3">
+				<lable class="text2">请选择高度(px):</label>
+				<input type="button" id="btn7" class="pic" value="200"/>
+				<input type="button" id="btn8" class="pic" value="300"/>
+				<input type="button" id="btn9" class="pic" value="400"/>
+			</div>
+			<div class="list4">
+				<input type="button" id="btn10" class="pic2" value="恢复"/>
+				<input type="button" id="btn11" class="pic2" value="确定"/>
+			</div>
+		</div>
+	</body>
+</html>
