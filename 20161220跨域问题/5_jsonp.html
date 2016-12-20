@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+<script type="text/javascript">
+	setTimeout(function(){
+		fn([1,2,3,4]);
+	},2000);
+</script>
+<script type="text/javascript">
+	/*
+		json + padding:
+			内填充的json格式数据
+			
+		ajax格式的数据jsonp一定用不了
+		$.ajax({
+			dataType:'jsonp',
+			url:'1.php?callback=?'
+			success:function(json){
+				
+			}
+		})
+		
+		link  -> .css
+		img -> src
+		script -> 解析javascript  
+		http://suggestion.baidu.com/su?wd=%E5%A6%99%E5%91%B3&json=1&p=3&cb=fn
+		fn({})
+		当需要跨域接口的时候，创建一个script把跨域数据解析为javascript代码，相当于调用了这个函数
+		
+		
+		function fn(json){
+			alert(json); //123
+		}
+		
+		fn(123)
+		
+	*/
+	var a = 10;
+	//alert(b);
+	function fn(b){
+		alert(b);
+	}
+	
+</script>	
+
+</body>
+</html>

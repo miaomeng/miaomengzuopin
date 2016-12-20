@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+<script type="text/javascript">
+	/*
+		script标签如果是直接写死，是同步执行
+		
+		创建再插入是异步执行的。
+		
+		没有回调函数就不是jsonp  fn()  - > {}
+		
+	*/
+	function fn(str){
+		alert(str);
+	}
+	
+	document.onclick = function(){
+		var os = document.createElement('script');
+		os.src = 'https://nizp.github.io/a.txt';
+		document.getElementsByTagName('head')[0].appendChild(os);
+	}
+	
+</script>
+</body>
+</html>

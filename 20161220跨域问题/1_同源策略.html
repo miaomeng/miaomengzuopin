@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	用户名:<input name="user" type="text"><span id="s"></span><br /><br />
+<script type="text/javascript">
+	
+	/*
+		
+		互联网协议必看（*看一定就会提高*）：
+			http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html
+		
+		跨域（源）（不同源就跨域）:
+			源:同源策略
+				对于web来说，最重要的是安全问题，而整个web都是建立在同源策略基础之上的
+				同源策略（Same origin policy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。*可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现*。
+			同源：
+				同协议：
+					如果后端文件的协议与打开页面的协议不一致，就跨域。
+				同端口
+					
+				同域名
+					域名：给ip取了个别名（好记）
+					www.baidu.com
+					119.75.217.109
+					
+					baidu.com
+					miaov.com
+					不同域名的文件是不能直接访问
+					
+					
+				
+			file协议：本地协议
+			http协议/https(安全证书)：超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。最初的目的是为了提供一种发布和接收HTML页面的方法
+			ftp:文传协议（上传，下载的域名下的文件的）
+			
+			域名必须经过dns解析之后，才能正常使用。
+			dns服务器：就是把ip地址和域名关联起的服务器
+			
+			协议：不同服务器之间用来通信的约定。
+			
+				
+	*/
+	
+	var btn = document.getElementById('btn');
+	var s = document.getElementById('s');
+	var user = document.getElementsByTagName('input')[0];
+	user.onblur = function(){
+		var val = user.value;
+		var ajax = new XMLHttpRequest();
+		ajax.open('get','http://localhost/2016-12-20/get.php?user='+encodeURI(val));
+
+		ajax.send();
+		
+		ajax.onreadystatechange = function(){
+			if(ajax.readyState === 4){
+				if(ajax.status >=200 && ajax.status <= 206){
+					s.innerHTML = ajax.responseText;
+				}else{
+					console.log(ajax.status);
+				}
+			}
+		}
+	}
+	
+</script>
+</body>
+</html>

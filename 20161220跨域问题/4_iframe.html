@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<iframe id="f" width="" height=""></iframe>
+	用户名:<input name="user" type="text"><span id="s"></span><br /><br />
+<script type="text/javascript">
+	
+	/*
+		解决跨域的方式：
+			1.html5的ajax对象（XMLHttpRequest） + 后端文件给一个权限
+			
+			XMLHttprequest()高版本浏览器才支持。在IE下不支持下面这种特性（没有升级处理）。
+			IE下用 XDomainRequest（）与ActiveX相比简陋（只有2种状态，跨域和不跨域）
+			XDomainRequestIE6下不支持,实测不能用onreadystatechange，要用onload
+			
+			2.服务器代理：
+				通过后端文件代理来访问所需要的跨域数据，本服务器又能访问这个后端文件
+				来解决跨域问题
+				
+			3.flash
+			
+			4.iframe src=""   5%
+			
+			5.jsonp   90%以上
+			
+				
+	*/
+	
+	var btn = document.getElementById('btn');
+	var s = document.getElementById('s');
+	var user = document.getElementsByTagName('input')[0];
+	user.onblur = function(){
+		f.src = "http://www.kaola.com";
+	}
+	
+</script>
+</body>
+</html>
