@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		ul{
+			list-style: none;
+			margin:0;
+			padding:0;
+		}
+		p{
+			margin:0;
+		}
+		.wrap{
+			width:560px;
+			height:40px;
+			padding:10px 20px;
+			margin: 30px auto;
+			background:#16868B;
+			
+		}
+		.wrap li{
+			float:left;
+			width:120px;
+			margin-right:20px;
+			position:relative;
+			
+			
+		}
+		.wrap p{
+			padding:2px 5px 0;
+			font:bold 16px/38px "微软雅黑";
+			background:#17DD46;
+			text-align:center;
+		}
+		.wrap .active p{
+			color:red;
+			border:2px solid #882603;
+			padding:0;
+			z-index: 2;
+			border-bottom: none;
+			position: relative;
+		}
+		.wrap .list{
+			position:absolute;
+			left:0;
+			top:38px;
+			border: 2px solid #666;
+			background:#ddd;
+			width: 140px;
+			z-index: 1;
+			display: none;
+			padding: 5px 3px;
+		}
+		
+		.wrap .active .list{
+			display:block;
+		}
+		.list li{
+			width:140px;
+			
+		}
+		.wrap .list p{
+			border: none;
+			background: none;
+			text-align: left;
+			text-indent: 10px;
+			font:bold 14px/26px "宋体";
+			padding: 1px;
+			padding-right: 0;
+		}
+		.list .active p{
+			width: 130px;
+			border: 1px solid cadetblue;
+			border-right: 0;
+			background: #5F9EA0;
+			position: relative;
+			z-index: 2;
+			padding: 0;
+		}
+		
+		.list2{
+			width: 140px;
+			position: absolute;
+			left: 130px;
+			top: 0;
+			z-index: 1;
+			padding: 5px 3px;
+			border: 1px solid steelblue;
+			background: #5F9EA0;
+			display:  none;
+		}
+		.list2 li{
+			width:120px;
+		}
+		.list .list2 p{
+			background:none;
+			border:none;
+			text-align:center;
+			font:bold 14px/26px "宋体";
+		}	
+		.list .active .list2{
+			display: block;
+		}
+		.list2 .active p{
+			color: darkblue;
+		}	
+		</style>
+		<script>
+			window.onload = function(){
+			var li = document.querySelectorAll('li');
+				for(var i = 0; i < li.length; i++){
+					li[i].onmouseover = function(){
+						this.className = "active";
+					};
+					li[i].onmouseout = function(){
+						this.className = "";
+					};
+				}
+	};
+		</script>
+	</head>
+	<body>
+		<ul class="wrap">
+			<li>
+				<p>所有分类</p>
+				<ul class="list">
+					<li>
+						<p>床上用品</p>
+						<ul class="list2">
+							<li><p>床上用品</p></li>
+							<li><p>毛毯毛被</p></li>
+							<li><p>单子被罩</p></li>
+							<li><p>床下用品</p></li>
+							<li><p>枕头枕巾</p></li>
+						</ul>
+					</li>
+					<li>
+						<p>电子产品</p>
+						<ul class="list2">
+							<li><p>手机大哥大</p></li>
+							<li><p>各种电脑</p></li>
+							<li><p>各种平板</p></li>
+							<li><p>各种复读机</p></li>
+							<li><p>内存卡</p></li>
+						</ul>
+					</li>
+					<li>
+						<p>医药用品</p>
+						<ul class="list2">
+							<li><p>各种感冒药</p></li>
+							<li><p>老鼠药/敌敌畏</p></li>
+							<li><p>神经病药</p></li>
+							<li><p>三九感冒灵</p></li>
+							<li><p>镇定剂</p></li>
+						</ul>
+					</li>
+					<li>
+						<p>体育用品</p>
+						<ul class="list2">
+							<li><p>运动自行车</p></li>
+							<li><p>户外用品</p></li>
+							<li><p>野战设备</p></li>
+							<li><p>直升飞机</p></li>
+							<li><p>大炮和步枪</p></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<p>旅游团体</p>
+				
+			</li>
+			<li>
+				<p>培训机构</p>
+				
+			</li>
+		</ul>
+	</body>
+</html>
