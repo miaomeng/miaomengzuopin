@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		ul{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		img {
+			vertical-align: top;
+		}
+		#wrap {
+			width: 550px;
+			margin: 30px auto;
+			position: relative;
+		}
+		#list {
+			overflow: hidden;
+		}
+		#list li {
+			float: left;
+			border: 5px solid #fff;
+		}
+		#list img{
+			width: 100px;
+		}
+		#list .active {
+			border-color: red;
+		}
+		#wrap input {
+			width: 40px;
+			height: 40px;
+			font: 20px "宋体";
+			position: absolute;
+			top: 30px;
+		}
+		#wrap input:nth-of-type(1){
+			left: -40px;
+		}
+		#wrap input:nth-of-type(2){
+			right: -40px;
+		}
+	</style>
+	<script type="text/javascript">
+		/*
+			1. 获取所有的li
+			2. 循环所有的li 添加鼠标移入事件
+			3. 大清洗 或 定点清除
+
+			1. 记录当前选中第几个
+			2. 点击上一步 --
+			3. 点击下一步 ++
+		
+
+			1. 开启定时器
+			2. 间隔 2000ms 跳转下一张
+		*/
+
+		/*
+			如何找到当前显示的是第几个?
+		*/
+
+
+		window.onload = function(){
+			var li = document.querySelectorAll('#list li');
+			var now = 0;
+			var input = document.querySelectorAll('input');
+			var timer = 0;
+			var wrap = document.querySelector('#wrap');
+			for(var i = 0; i < li.length; i++){
+				if(li[i].className == "active") {
+					now = i;
+				}
+				li[i].index = i;
+				li[i].onmouseover = function(){
+					for(var i = 0; i < li.length; i++){
+						li[i].className = "";
+					}
+					this.className = "active";
+					now = this.index;
+				};
+			}
+			input[0].onclick = function(){
+				now--;
+				if(now < 0) {
+					now = li.length - 1;
+				}
+				for(var i = 0; i < li.length; i++){
+					li[i].className = "";
+				}
+				li[now].className = "active";
+			};
+			input[1].onclick = function(){
+				now++;
+				if(now > li.length - 1) {
+					now = 0;
+				}
+				for(var i = 0; i < li.length; i++){
+					li[i].className = "";
+				}
+				li[now].className = "active";
+			};
+			function auto(){
+				timer = setInterval(function(){
+					now++;
+					if(now > li.length - 1) {
+						now = 0;
+					}
+					for(var i = 0; i < li.length; i++){
+						li[i].className = "";
+					}
+					li[now].className = "active";
+				},2000);
+			}
+			auto();
+			wrap.onmouseover = function(){
+				clearInterval(timer);
+			};
+			wrap.onmouseout = function(){
+				auto();
+			};
+		};
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<input type="button" value="<">
+		<ul id="list">
+			<li class="active">
+				<img src="img/1.jpg" />
+			</li>
+			<li>
+				<img src="img/2.jpg" />
+			</li>
+			<li>
+				<img src="img/3.jpg" />
+			</li>
+			<li>
+				<img src="img/4.jpg" />
+			</li>
+			<li>
+				<img src="img/5.jpg" />
+			</li>
+		</ul>
+		<input type="button" value=">">
+	</div>
+</body>
+</html>
