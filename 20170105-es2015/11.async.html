@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        async function fn() {
+            var data = await fn2('./data.txt');
+            console.log(data);
+            var data1 = await fn2('./data1.txt');
+            console.log(data1);
+            var data2 = await fn2('./data2.txt');
+            console.log(data2);
+        }
+
+        function fn2(url) {
+            return new Promise(function(resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('get', url, true);
+                xhr.onload = function() {
+                    resolve(xhr.responseText);
+                }
+                xhr.send();
+            });
+        }
+
+        fn();
+
+        function coffee(target) {
+            target.isTestable = true;
+        }
+
+        function sugar(target) {
+            target.isTestable = true;
+        }
+
+        class MilkTea {}
+
+        @coffee()
+        @sugar()
+        class MilkTea {}
+
+/*        class CoffeeTea extends MilkTea {}
+        class SugarTea extends MilkTea {}
+
+        class SugarCoffeeTea extends CoffeeTea {}*/
+
+        console.log(MyTestableClass.isTestable) // true
+    </script>
+</head>
+
+<body>
+
+</body>
+</html>

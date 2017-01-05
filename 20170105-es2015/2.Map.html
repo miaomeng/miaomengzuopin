@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * ES6提供了Map数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。也就是说，Object结构提供了“字符串—值”的对应，Map结构提供了“值—值”的对应，是一种更完善的Hash结构实现。如果你需要“键值对”的数据结构，Map比Object更合适
+        * */
+
+        let m1 = new Map();
+//
+//        m1.username = 'leo';
+//        m1.set('username', 'leo');
+//        console.log(m1.get('username'));
+//
+//        m1.set(true, '智鹏');
+//
+//        console.log(m1.get(true));
+//
+//
+        console.dir(m1);
+//
+
+        function Tree() {
+            this['[[Entries]]'] = [];
+        }
+        Tree.prototype = {
+            constructor: Tree,
+
+            add(pid, id, value) {
+                this['[[Entries]]'].push({
+                    pid: pid,
+                    id: id,
+                    name: value
+                })
+            },
+
+            getChildren(id) {
+                var arr = [];
+                this['[[Entries]]'].forEach(function(v) {
+                    if (v.pid == id) {
+                        arr.push(v);
+                    }
+                });
+                return arr;
+            }
+        };
+
+        let t1 = new Tree();
+
+        t1.add(0, 1, '技术');
+        t1.add(0, 2, '体育');
+
+        t1.add(1, 3, '前端');
+        t1.add(1, 4, '后端');
+
+        console.log(t1.getChildren(1));
+
+        console.log(t1);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+</html>

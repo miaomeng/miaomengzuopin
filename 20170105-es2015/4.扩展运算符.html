@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 扩展运算符（spread）是三个点（...）。它好比rest参数的逆运算，将一个数组转为用逗号分隔的参数序列。该运算符主要用于函数调用。
+        *
+        * ...后面只要满足可迭代就行
+        * */
+
+//        var arr1 = [1,2,3];
+//        var arr2 = [...arr1];   //=> [1,2,3]
+//
+//        console.log(arr2);
+//
+//        arr2.push(4);
+//        console.log(arr1);
+
+        //合并
+
+//        var arr1 = [1,2,3];
+//        var arr2 = ['a', 'b', 'c', ...arr1];
+//        console.log(arr2);
+
+//        var arr1 = [1,2,3];
+//        var arr2 = ['a', 'b', 'c'];
+//        var arr3 = [...arr1, ...arr2];
+//        console.log(arr3);
+
+//        var arr = [1,6,3,7,22,5,3];
+//
+//        console.log( Math.max(...arr) );
+//
+//        let arr = [1,2,3,1,2,3,1,2,4,56,423];
+//        console.log( [...new Set(arr)] );
+
+
+        var p1 = {
+            name: 'leo',
+            age: 36,
+            gender: '男'
+        };
+
+        p1[Symbol.iterator] = function() {
+            var data = Object.keys(p1);
+            var len = data.length;
+            var i = 0;
+            return {
+                next() {
+                    if (i < len) {
+                        return {
+                            value:data[i++],
+                            done: false
+                        }
+                    } else {
+                        return {
+                            value:data[i],
+                            done: true
+                        }
+                    }
+                }
+            }
+        }
+
+        console.log( [...p1] );
+
+        window.onload = function() {
+
+            var lis = document.querySelectorAll('li');
+            
+            console.log(lis);
+
+            var arr = [...lis];
+
+            console.log(arr);
+
+        }
+    </script>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+</html>

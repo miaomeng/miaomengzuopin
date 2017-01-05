@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        /*
+        * 箭头函数是一个函数表达式
+        * =>的左侧是参数列表
+        *   如果没有参数，必须加()占位
+        *       var f = () => 1;
+        *   如果有多个参数，也不需加()
+        *       var f = (a, b, c) => 1;
+        *   只有当参数有且仅有一个的时候，可以省略()
+        *
+        * =>右侧是返回值的或者函数体
+        *   如果函数的函数体内只有一条语句可以省略{}，该语句的结果作为返回值
+        *       var f = a => a + 1;
+        *   如果有多条语句，则需要{}，如果有返回值的话，要使用return
+        *       var f = a => {
+        *           var b = parseInt(input.value);
+        *           input.value = a + b;
+        *           return;
+        *       };
+        *   如果只有一条语句，但是返回值是一个对象，那么必须加{}
+        *       var f = a => {
+        *           return {
+        *               a + 1
+        *           }
+        *       };
+        *
+        *
+        *  箭头函数中的上下文对象（this）是根据函数定义的时候决定的
+        *  箭头函数没有arguments对象
+        *  不可以当作构造函数，不可以使用new命令，否则会抛出一个错误。
+         * */
+
+//        var f = a => a + 1;
+//
+//        var f = function(a) {
+//            return a + 1;
+//        }
+
+//        (() => {
+//            console.log(arguments);
+//        })();
+
+        window.onload = function() {
+
+//            document.onclick = function() {
+//                console.log(this);
+//            }
+
+//            document.onclick = () => {
+//                console.log(this);
+//
+//                (() => {
+//                    console.log(this);
+//                })()
+//            }
+
+            document.body.onclick = function() {
+
+                //var _this = this;
+
+//                setTimeout(function() {
+//                    _this.style.background = 'red';
+//                }, 1000)
+
+                setTimeout(() => {
+                    this.style.background = 'red';
+                }, 1000)
+            }
+
+            document.onclick = e => {
+                console.log(e);
+            }
+
+        }
+    </script>
+</head>
+
+<body style="height: 2000px;">
+
+</body>
+</html>

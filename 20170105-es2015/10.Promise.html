@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            position: absolute;
+            left: 0;
+            top: 40px;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+    <script src="mTween.js"></script>
+    <script>
+
+        function $(selector) {
+            return new jQuery(selector);
+        }
+
+        function jQuery(selector) {
+            var elements = document.querySelectorAll(selector);
+            for (var i=0; i<elements.length; i++) {
+                this[i] = elements[i];
+            }
+            this.length = elements.length;
+        }
+        jQuery.prototype.animate = function(attrs, duration, fx) {
+            var duration = duration || 1000;
+            var fx = fx || 'backOut';
+            for (var i=0; i<this.length; i++) {
+                var el = this[i];
+
+                if (!el.promise) {
+                    el.promise = new Promise(function (resolve) {
+                        mTween(el, attrs, duration, fx, function() {
+                            resolve();
+                        });
+                    })
+                } else {
+                    el.promise = el.promise.then(function() {
+                        return new Promise(function (resolve) {
+                            mTween(el, attrs, duration, fx, function () {
+                                resolve();
+                            });
+                        });
+
+                    })
+                }
+            }
+            return this;
+        }
+//
+//        el.promise = new Promise()
+//
+//        el.promise.then
+
+        window.onload = function() {
+            var btn = document.querySelector('button');
+            var div = document.querySelector('div');
+
+            btn.onclick = function() {
+//                move(div, {
+//                    left: 100
+//                }, 1000, 'backOut').move(div, {
+//                    top: 100
+//                }, 1000, 'backOut').move(div, {
+//                    width: 200
+//                }, 1000, 'backOut').move(div, {
+//                    height: 200
+//                }, 1000, 'backOut');
+            };
+
+//            var jq = $('.box');
+//            console.log(jq);
+
+            $('.box').animate({
+                left: 100
+            }).animate({
+                top: 100
+            }).animate({
+                width: 200
+            }).animate({
+                height: 200
+            });
+
+            $('.box1').animate({
+                width: 200
+            }).animate({
+                height: 200
+            });
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <button>开始</button>
+    <div class="box"></div>
+    <div class="box1" style="top: 300px"></div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 函数参数的默认值
+        * */
+        function ajax(url, callback, data, method) {
+            var url = url || '';
+            var callback = callback || function(){};
+            var data = data || '';
+            var method = method || 'get';
+            //....
+        }
+
+        function ajax2(url, callback, data='', method='get') {
+        }
+
+        //当一个参数的默认值使用的频率越大，在参数列表中越靠后
+        function ajax3(method='get', url, callback, data='') {
+        }
+
+        ajax3('get','getData.php')
+
+        /*
+        * rest参数
+        * 有点类似arguments，但是又有区别
+        * 他表示的是剩余参数集合
+        * 剩余参数必须是尾参数
+        * */
+
+//        function arrayPush() {
+//            for (var i=1; i<arguments.length; i++) {
+//                arguments[0].push(arguments[i]);
+//            }
+//        }
+//
+//        var arr = [1,2,3];
+//
+//        arrayPush(arr, 'a', 'b', 'c');
+//
+//        console.log(arr);
+
+        function arrayPush(data, ...data2) {
+            for (var i=0; i<data2.length; i++) {
+                data.push(data2[i]);
+            }
+        }
+
+        var arr = [1,2,3];
+
+        arrayPush(arr, 'a', 'b', 'c');
+
+        console.log(arr);
+    </script>
+</head>
+
+<body>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * ES6提供了新的数据结构Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+        *
+        * 构造函数：Set
+        * */
+
+        let s1 = new Set();
+
+        s1.add('leo');
+        s1.add('leo');
+
+        //console.log(s1[0]);   //Set虽然数据的组织在内部是有序，但是并没有对外暴露下标方式的访问接口
+
+//        console.log(s1.size);
+
+        s1.add('智鹏');   //{'智鹏':'智鹏'}
+
+//        console.log(s1.size);
+
+//        s1.forEach(function(a, b, c) {
+//            console.log(a, b, c);
+//            console.log(c == s1);
+//        });
+        
+//        console.log( s1.has('leo') );
+//        console.log( s1.has('zhipeng') );
+        
+//        console.log(s1.keys());
+//        console.log(s1.values());
+
+//        for (var v of s1.values()) {
+//            console.log(v);
+//        }
+
+        //s1.delete('leo');
+
+        //s1.clear();
+
+        console.dir(s1);
+
+        let arr = [1,2,3,1,2,3,1,2,4,56,423];
+
+        //console.log( [...new Set(arr)] );
+
+        let s2 = new Set(arr);
+//        for (var i=0; i<arr.length; i++) {
+//            s2.add(arr[i]);
+//        }
+
+        let arr2 = [];
+        s2.forEach(function(v) {
+            arr2.push(v);
+        })
+
+//        console.log(arr2);
+    </script>
+</head>
+
+<body>
+
+</body>
+</html>

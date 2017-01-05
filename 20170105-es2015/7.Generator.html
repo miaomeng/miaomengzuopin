@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+//        function *fn() {
+//            var a = yield console.log(1);
+//            console.log(a);
+//            yield console.log(2);
+//            yield console.log(3);
+//            yield console.log(4);
+//        }
+//
+//        //返回一个函数迭代器
+//        var f = fn();
+////        console.log(f);
+//        f.next();
+//        f.next(2);
+//        f.next();
+//        f.next();
+
+
+        window.onload = function() {
+
+            var btn = document.querySelector('button');
+
+//            btn.onclick = function() {
+//                var img = new Image();  //var img = document.createElement('img');
+//
+////                img.onload = function() {
+////                    console.log('加载完成');
+////                }
+//                img.src = 'http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1306/27/c3/22647769_1372328143774.jpg';
+//                document.body.appendChild(img);
+//            }
+
+            var m;
+            btn.onclick = function() {
+                m = main();
+                m.next();
+            };
+
+            function *main() {
+                var data = yield load();
+                console.log(data);
+            }
+
+            function load() {
+                var xhr = new XMLHttpRequest();
+                xhr.open('get', './data.txt', true);
+                xhr.onload = function() {
+                    m.next(xhr.responseText);
+                }
+                xhr.send();
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <button>加载资源</button>
+</body>
+</html>

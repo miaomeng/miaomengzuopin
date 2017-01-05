@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function() {
+
+            var btn = document.querySelector('button');
+
+//            btn.onclick = function() {
+//
+//                var xhr = new XMLHttpRequest();
+//                xhr.open('get', './data.txt', true);
+//                xhr.onload = function() {
+//                    console.log(xhr.responseText);
+//
+//                    var xhr = new XMLHttpRequest();
+//                    xhr.open('get', './data1.txt', true);
+//                    xhr.onload = function() {
+//                        console.log(xhr.responseText);
+//
+//                        var xhr = new XMLHttpRequest();
+//                        xhr.open('get', './data2.txt', true);
+//                        xhr.onload = function() {
+//                            console.log(xhr.responseText);
+//                        }
+//                        xhr.send();
+//                    }
+//                    xhr.send();
+//                }
+//                xhr.send();
+//            }
+
+            btn.onclick = function() {
+
+                load('./data.txt', function(data) {
+                    console.log(data);
+                    load('./data1.txt', function(data) {
+                        console.log(data);
+                        load('./data2.txt', function() {
+                            console.log(data);
+                        })
+                    })
+                })
+
+            }
+
+            function load(url, callback) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('get', url, true);
+                xhr.onload = function() {
+                    callback(xhr.responseText);
+                }
+                xhr.send();
+            }
+
+//            btn.onclick = function() {
+//
+//               var p1 = new Promise(function(resolve, reject) {
+//                    load('./data.txt', function(data) {
+//                        resolve(data);
+//                    });
+//                }).then(function(data) {
+//                    console.log(data);
+//                    //当一个promise的操作变成了已完成或者已失败的时候，不能重置的
+//                   return new Promise(function(resolve, reject) {
+//                       load('./data1.txt', function(data) {
+//                           resolve(data);
+//                       });
+//                   })
+//                }).then(function(data) {
+//                   console.log(data);
+//                   //当一个promise的操作变成了已完成或者已失败的时候，不能重置的
+//                   return new Promise(function(resolve, reject) {
+//                       load('./data2.txt', function(data) {
+//                           resolve(data);
+//                       });
+//                   })
+//               }).then(function(data) {
+//                   console.log(data);
+//               });
+//
+//            }
+
+            btn.onclick = function() {
+
+                promiseLoad('./data.txt').then(function(data) {
+                    console.log(data);
+                    return promiseLoad('./data1.txt');
+                }).then(function(data) {
+                    console.log(data);
+                    return promiseLoad('./data2.txt');
+                }).then(function(data) {
+                    console.log(data);
+                });
+
+            }
+
+            function promiseLoad(url) {
+                return new Promise(function (resolve, reject) {
+                    load(url, function(data) {
+                       resolve(data);
+                   });
+                });
+            }
+        }
+    </script>
+</head>
+
+<body>
+<button>加载资源</button>
+</body>
+</html>

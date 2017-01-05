@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * Class
+        *
+        *   用来创建类的
+        *   在js中，原来我们是通过创建一个构造函数来创建对象
+        *   其他的语言基本都是通过创建类类创建对象的
+        *
+        *   类：类型
+        *       成员属性
+        *       成员方法
+        * */
+
+        class Person {
+            //class中固定有的有特殊含义的方法，用来初始化对象的
+            //当我们通过new 类型()的时候，调用的其实就是该类的构造方法，通常我们会在构造函数中对类型所产生的对象进行初始化的一些设置，比如属性初始化
+            //class中定义的 函数 中的this永远都是对象
+            constructor(name, age, sex) {
+//                console.log(1);
+                this.name = name;
+                this.age = age;
+                this.sex = sex;
+            }
+
+            say() {
+                console.log(`我是${this.name}，性别：${this.sex}，今年 ${this.age}岁`);
+            }
+
+            eat() {
+                console.log('吃饱了喝足了……');
+            }
+        }
+
+        class Student extends Person {
+
+            say() {
+                console.log(`我是一个学生，名字是：${this.name}，性别：${this.sex}，今年 ${this.age}岁`);
+            }
+
+            study() {
+                console.log('挑灯夜读……');
+            }
+
+            eat() {
+                super.eat();
+                this.study();
+            }
+        }
+
+        var p1 = new Person('Leo', 36, '男');
+        console.log(p1);
+        p1.say();
+        p1.eat();
+
+        var s1 = new Student('张三', 20, '男');
+        console.log(s1);
+        s1.say();
+        s1.study();
+        s1.eat();
+    </script>
+</head>
+
+<body>
+
+</body>
+</html>
