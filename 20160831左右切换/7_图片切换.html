@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#wrap{
+			width: 300px;
+			border: 2px solid #000;
+			margin:30px auto;
+			text-align: center;
+		}
+	</style>
+	<script>
+		var arr = [
+			"pics/img1.jpg",
+			"pics/img2.jpg",
+			"pics/img3.jpg",
+			"pics/img4.jpg"
+		];
+		window.onload = function() {
+			var prev = document.getElementById("prev");
+			var next = document.getElementById("next");
+			var img = document.getElementById("img");
+			var nub = 0;
+			prev.onclick = function() {
+				nub--;
+				if(nub<0){
+					nub=arr.length-1;
+				}
+				img.src= arr[nub];  
+			};
+			next.onclick = function() {
+				nub++;
+				if(nub>arr.length-1){
+					nub=0;
+				}
+				img.src= arr[nub];
+			};
+		};
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<a href="javascript:;" id="prev">上一张</a>
+	<a href="javascript:;" id="next">下一张</a>
+	<img src="pics/img1.jpg" id="img">
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#wrap{
+			width: 300px;
+			border: 2px solid #000;
+			margin:30px auto;
+			text-align: center;
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			var prev = document.getElementById("prev");
+			var next = document.getElementById("next");
+			var img = document.getElementById("img");
+			var nub = 1;
+			prev.onclick = function() {
+				nub--;
+				img.src="pics/img"+nub+".jpg";  
+			};
+			next.onclick = function() {
+				nub++;
+				img.src="pics/img"+nub+".jpg";
+			};
+		};
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<a href="javascript:;" id="prev">上一张</a>
+	<a href="javascript:;" id="next">下一张</a>
+	<img src="pics/img1.jpg" id="img">
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script>
+		window.onload = function(){
+			var btn = document.getElementById("btn1");
+			var btn2 = document.getElementById("btn2");
+			var span = document.getElementById("span");
+			var nub = 0;
+			var arr = ["零","一","二","三","四","五","六"];
+			/*
+				arr.length 长度  数组中存了多少条数据
+				
+				数组是从第0位开始计数的，所以数组的最后一位是 数组length-1位
+			*/
+			btn.onclick = function(){
+				nub++;
+				if(nub >= arr.length) {
+					nub = 0;
+				}
+				span.innerHTML = arr[nub];
+			};
+			btn2.onclick = function(){
+				nub--;
+				if(nub < 0) {
+					nub = arr.length - 1;
+				}
+				span.innerHTML = arr[nub];
+			};
+		};
+	</script>
+</head>
+<body>
+<input type="button" value="+" id="btn1" />
+<span id="span">零</span>
+<input type="button" value="-" id="btn2" />
+</body>
+</html>
