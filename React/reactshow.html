@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.red{
+				width:100px;
+				height:100px;
+				background:red;
+			}
+		</style>
+		<script src="js/react.js"></script>
+		<script src="js/react-dom.js"></script>
+		<script src="js/browser.min.js"></script>
+		<!--<script src="js/JSXTransformer.js"></script>-->
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+	<script type="text/babel">
+		var Toggle=React.createClass({
+			getInitialState:function(){
+				return {
+					onOff:true
+				}
+			},
+			render:function(){
+				return (
+					<div>
+						<Btn on={this.state.onOff} that={this}/>
+						<Div on={this.state.onOff}/>
+					</div>
+				)
+			}
+		});
+		var Btn=React.createClass({
+			clickFn:function(){
+				this.props.that.setState({
+					onOff:!this.props.on
+				});
+			},
+				render:function(){
+					var v=this.props.on?'显示':'隐藏';
+				return (
+					<input type="button" value={v} onClick={this.clickFn} />
+				)
+			}
+		});
+		
+		
+		var Div=React.createClass({
+				
+				render:function(){
+				
+				var styleObj={
+					display:this.props.on?'block':'none'
+				};//这个地方结束必须分号
+				return (
+					<div className="red" style={styleObj}></div>
+				)
+			}
+		});
+		
+		ReactDOM.render(
+			<Toggle/>,
+			document.getElementById('box')
+		);
+		
+	</script>
+</html>
+
